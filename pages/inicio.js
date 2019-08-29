@@ -1,42 +1,73 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
 
-export default function Inicio() {
-    state = {
-        balancoTotal: 1000,
-        investimentoTotal: 1000,
-        meses: [
-            { nome: "Janeiro", entrada: 950, saida: 800 },
-            { nome: "Fevereiro", entrada: 950, saida: 800 },
-            { nome: "Março", entrada: 950, saida: 800 },
-            { nome: "Abril", entrada: 950, saida: 800 },
-            { nome: "Maio", entrada: 950, saida: 800 },
-            { nome: "Junho", entrada: 950, saida: 800 },
-            { nome: "Julho", entrada: 950, saida: 800 },
-            { nome: "Agosto", entrada: 950, saida: 800 },
-        ]
-    };
+export default class Inicio extends React.Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: 'Inicio',
+        headerRight: (
+            <Button
+              title="+"
+              fontSize={25}
+              marginRight={10}
+              fontWeight='bold'
+              backgroundColor='magenta'
+              onPress={() => navigation.navigate('Novo')}
+            />
+          ),
+    })
 
-    return (
-        <ScrollView style={styles.pagina}>
-            <View style={styles.resumo}>
-                <Text style={styles.resumoNumero}>{state.balancoTotal}</Text>
-                <Text style={styles.resumoTexto}>de balanço total</Text>
-                <Text style={styles.resumoNumero}>{state.investimentoTotal}</Text>
-                <Text style={styles.resumoTexto}>de investimento total</Text>
-            </View>
-            <View style={styles.meses}>
-                {state.meses.map(mes => (
-                    <View style={styles.mes} key={mes.nome}>
-                        <Text style={styles.mesTitulo}>{mes.nome}</Text>
-                        <Text style={styles.mesEntrada}>+ {mes.entrada}</Text>
-                        <Text style={styles.mesSaida}>- {mes.saida}</Text>
-                        <Button title="+ Detalhes" color='magenta' style={styles.mesDetalhes} />
+    constructor(props) {
+        super(props)
+        this.state = {
+            balancoTotal: 0,
+            investimentoTotal: 0,
+            meses: []
+        };
+    }
+
+    componentDidMount() {
+        this.setState({
+            balancoTotal: 1000,
+            investimentoTotal: 1000,
+            meses: [
+                { nome: "Janeiro", entrada: 950, saida: 800 },
+                { nome: "Fevereiro", entrada: 950, saida: 800 },
+                { nome: "Março", entrada: 950, saida: 800 },
+                { nome: "Abril", entrada: 950, saida: 800 },
+                { nome: "Maio", entrada: 950, saida: 800 },
+                { nome: "Junho", entrada: 950, saida: 800 },
+                { nome: "Julho", entrada: 950, saida: 800 },
+                { nome: "Agosto", entrada: 950, saida: 800 },
+            ]
+        })    
+        this.forceUpdate()
+    }
+
+    render() {
+        return (
+            <ScrollView style={styles.pagina}>
+                <View style={styles.resumo}>
+                    <Text style={styles.resumoNumero}>{this.state.balancoTotal}</Text>
+                    <Text style={styles.resumoTexto}>de balanço total</Text>
+                    <Text style={styles.resumoNumero}>{this.state.investimentoTotal}</Text>
+                    <Text style={styles.resumoTexto}>de investimento total</Text>
+                </View>
+
+                {this.state.meses &&
+                    <View style={styles.meses}>
+                        {this.state.meses.map(mes => (
+                            <View style={styles.mes} key={mes.nome}>
+                                <Text style={styles.mesTitulo}>{mes.nome}</Text>
+                                <Text style={styles.mesEntrada}>+ {mes.entrada}</Text>
+                                <Text style={styles.mesSaida}>- {mes.saida}</Text>
+                                <Button title="+ Detalhes" color='magenta' style={styles.mesDetalhes} />
+                            </View>
+                        ))}
                     </View>
-                ))}
-            </View>
-        </ScrollView>
-    )
+                }
+            </ScrollView>
+        )
+    }
 }
 
 const styles = StyleSheet.create({

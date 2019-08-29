@@ -1,8 +1,15 @@
-import React from 'react';
-import Inicio from './pages/inicio'
+import React from 'react'
 
-export default function App() {
-  return (
-    <Inicio />
-  );
-}
+import { createStackNavigator, createAppContainer } from 'react-navigation'
+
+import Inicio from './pages/inicio'
+import Novo from './pages/novo'
+
+const mainNavigator = createStackNavigator({
+    Inicio: { screen: Inicio },
+    Novo: { screen: Novo}
+})
+
+const App = createAppContainer(mainNavigator)
+
+export default App
