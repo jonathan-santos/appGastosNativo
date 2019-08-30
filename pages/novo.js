@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ScrollView, Text, TextInput, Picker, Button, StyleSheet } from 'react-native';
+import DatePicker from 'react-native-datepicker'
 
 export default class Novo extends React.Component {
     static navigationOptions = {
@@ -8,8 +9,12 @@ export default class Novo extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
 
+        const hoje = new Date()
+        const hojeString = `${hoje.getDate()}-${hoje.getMonth()+1}-${hoje.getFullYear()}`;
+
+        this.state = {
+            data: hojeString
         }
     }
 
@@ -20,8 +25,23 @@ export default class Novo extends React.Component {
                     <Text style={styles.titulo}>Detalhes</Text>
 
                     <View style={styles.campo}>
+                        <Text style={styles.label}>Título</Text>
+                        <TextInput style={styles.input} placeholder='Pãozinho na padoca' selectionColor='rgb(52, 152, 219)' underlineColorAndroid='rgb(52, 152, 219)' />
+                    </View>
+
+                    <View style={styles.campo}>
                         <Text style={styles.label}>Data</Text>
-                        <TextInput style={styles.input} placeholder='01/01/2019' selectionColor='rgb(52, 152, 219)' underlineColorAndroid='rgb(52, 152, 219)' />
+                        <DatePicker
+                            style={styles.inputData}
+                            mode='date'
+                            date={this.state.data}
+                            format='DD-MM-YYYY'
+                            showIcon={false}
+                            customStyles={{
+                                dateInput: styles.inputDataView,
+                                dateText: styles.inputDataText
+                            }}
+                        />
                     </View>
 
                     <View style={styles.campo}>
@@ -30,25 +50,27 @@ export default class Novo extends React.Component {
                     </View>
 
                     <View style={styles.campo}>
-                        <Text style={styles.label}>Título</Text>
-                        <TextInput style={styles.input} placeholder='Pãozinho na padoca' selectionColor='rgb(52, 152, 219)' underlineColorAndroid='rgb(52, 152, 219)' />
-                    </View>
-
-                    <View style={styles.campo}>
                         <Text style={styles.label}>Tipo</Text>
                         <Picker style={styles.input}>
-                            <Picker.Item label="Compras" value="Compras" />
                             <Picker.Item label="Comida" value="Comida" />
                             <Picker.Item label="Transporte" value="Transporte" />
+                            <Picker.Item label="Compras" value="Compras" />
+                            <Picker.Item label="Lazer" value="Lazer" />
+                            <Picker.Item label="Saúde" value="Saúde" />
+                            <Picker.Item label="Contas" value="Contas" />
+                            <Picker.Item label="Transferências" value="Transferências" />
+                            <Picker.Item label="Investimentos" value="Investimentos" />
                         </Picker>
                     </View>
 
                     <View style={styles.campo}>
                         <Text style={styles.label}>Forma de pagamento</Text>
                         <Picker style={styles.input}>
-                            <Picker.Item label="Débito" value="Débito" />
-                            <Picker.Item label="Crédito" value="Crédito" />
                             <Picker.Item label="Dinheiro" value="Dinheiro" />
+                            <Picker.Item label="Débito" value="Débito" />
+                            <Picker.Item label="Boleto" value="Boleto" />
+                            <Picker.Item label="Transferência" value="Transferência" />
+                            <Picker.Item label="Crédito" value="Crédito" />
                         </Picker>
                     </View>
 
@@ -91,6 +113,23 @@ const styles = StyleSheet.create({
     input: {
         height: 40,
         paddingLeft: 6,
+        fontSize: 16
+    },
+    inputData: {
+        width: '100%'
+    },
+    inputDataView: {
+        height: 25,
+        justifyContent: 'flex-end',
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+        borderRightWidth: 0,
+        borderBottomWidth: 1,
+        borderColor: 'rgb(52, 152, 219)'
+    },
+    inputDataText: {
+        paddingLeft: 6,
+        alignSelf: 'flex-start',
         fontSize: 16
     },
     inputDescricao: {
