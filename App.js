@@ -6,8 +6,8 @@ import Inicio from './pages/inicio'
 import Novo from './pages/novo'
 
 const mainNavigator = createStackNavigator({
+    Novo: { screen: Novo},
     Inicio: { screen: Inicio },
-    Novo: { screen: Novo}
 })
 
 const App = createAppContainer(mainNavigator)
