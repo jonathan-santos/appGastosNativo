@@ -6,8 +6,18 @@ import Inicio from './pages/inicio'
 import Novo from './pages/novo'
 
 const mainNavigator = createStackNavigator({
-    Novo: { screen: Novo},
     Inicio: { screen: Inicio },
+    Novo: { screen: Novo},
+}, {
+    defaultNavigationOptions: {
+        headerStyle: {
+            backgroundColor: 'rgb(52, 152, 219)',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    }
 })
 
 const App = createAppContainer(mainNavigator)

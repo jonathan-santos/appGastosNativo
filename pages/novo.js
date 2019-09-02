@@ -4,7 +4,7 @@ import DatePicker from 'react-native-datepicker'
 
 export default class Novo extends React.Component {
     static navigationOptions = {
-        title: 'Novo'
+        title: 'Novo Gasto'
     }
 
     constructor(props) {
@@ -38,8 +38,7 @@ export default class Novo extends React.Component {
         return (
             <ScrollView style={styles.pagina}>
                 <View style={styles.form}>
-                    <Text style={styles.titulo}>Detalhes</Text>
-                    <Text style={styles.descricao}>Descreva os detalhes do novo gasto</Text>
+                    <Text style={styles.descricao}>Preencha os detalhes do novo gasto</Text>
 
                     <View style={styles.campo}>
                         <Text style={styles.label}>Título</Text>
@@ -132,7 +131,8 @@ export default class Novo extends React.Component {
                     <Button
                         title='Salvar Gasto'
                         onPress={e => this.salvarGasto()}
-                        style={styles.salvar}
+                        color='rgb(52, 152, 219)'
+                        height={35}
                     />
                 </View>
             </ScrollView>
@@ -144,22 +144,18 @@ const styles = StyleSheet.create({
     pagina: {
         height: '100%',
         padding: 10,
-        backgroundColor: 'rgb(52, 152, 219)'
+        backgroundColor: '#ddd'
     },
     form: {
         padding: 10,
         backgroundColor: '#fff',
         borderRadius: 5
     },
-    titulo: {
-        textAlign: 'center',
-        fontSize: 25,
-        fontWeight: 'bold',
-        color: 'rgb(52, 152, 219)'
-    },
     descricao: {
-        fontSize: 15,
-        color: '#aaa'
+        marginBottom: 5,
+        textAlign: 'center',
+        fontSize: 16,
+        color: '#777'
     },
     campo: {
         margin: 5,
@@ -193,8 +189,5 @@ const styles = StyleSheet.create({
     inputDescricao: {
         paddingLeft: 6,
         fontSize: 16
-    },
-    salvar: {
-
     }
 })

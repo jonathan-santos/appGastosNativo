@@ -5,15 +5,14 @@ export default class Inicio extends React.Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Inicio',
         headerRight: (
-            <Button
-              title="+"
-              fontSize={25}
-              marginRight={10}
-              fontWeight='bold'
-              backgroundColor='magenta'
-              onPress={() => navigation.navigate('Novo')}
-            />
-          ),
+            <View style={{ paddingRight: 10 }}>
+                <Button
+                    title=" + "
+                    color='magenta'
+                    onPress={() => navigation.navigate('Novo')}
+                />
+            </View>
+        ),
     })
 
     constructor(props) {
