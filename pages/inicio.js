@@ -12,7 +12,7 @@ export default class Inicio extends React.Component {
                     onPress={() => navigation.navigate('Novo')}
                 />
             </View>
-        ),
+        )
     })
 
     constructor(props) {
