@@ -11,11 +11,27 @@ export default class Novo extends React.Component {
         super(props)
 
         const hoje = new Date()
-        const hojeString = `${hoje.getDate()}-${hoje.getMonth()+1}-${hoje.getFullYear()}`;
+        const hojeString = `${hoje.getDate()}/${hoje.getMonth()+1}/${hoje.getFullYear()}`;
 
         this.state = {
-            data: hojeString
+            titulo: '',
+            valor: '',
+            data: hojeString,
+            tipoGasto: 'Comida',
+            formaPagamento: 'Dinheiro',
+            descricao: ''
         }
+    }
+
+    valorAlterado(novoValor, campo) {
+        this.setState({
+            ...this.state,
+            [campo]: novoValor
+        })
+    }
+
+    salvarGasto() {
+        console.log(`this.state: ${JSON.stringify(this.state)}`)
     }
 
     render() {
@@ -23,19 +39,31 @@ export default class Novo extends React.Component {
             <ScrollView style={styles.pagina}>
                 <View style={styles.form}>
                     <Text style={styles.titulo}>Detalhes</Text>
+                    <Text style={styles.descricao}>Descreva os detalhes do novo gasto</Text>
 
                     <View style={styles.campo}>
                         <Text style={styles.label}>Título</Text>
-                        <TextInput style={styles.input} placeholder='Pãozinho na padoca' selectionColor='rgb(52, 152, 219)' underlineColorAndroid='rgb(52, 152, 219)' />
+
+                        <TextInput
+                            value={this.state.titulo}
+                            onChangeText={novoValor => this.valorAlterado(novoValor, 'titulo')}
+                            style={styles.input}
+                            autoFocus
+                            placeholder='Pãozinho na padoca'
+                            selectionColor='rgb(52, 152, 219)'
+                            underlineColorAndroid='rgb(52, 152, 219)'
+                        />
                     </View>
 
                     <View style={styles.campo}>
                         <Text style={styles.label}>Data</Text>
+
                         <DatePicker
+                            date={this.state.data}
+                            onDateChange={novoValor => this.valorAlterado(novoValor, 'data')}
                             style={styles.inputData}
                             mode='date'
-                            date={this.state.data}
-                            format='DD-MM-YYYY'
+                            format='DD/MM/YYYY'
                             showIcon={false}
                             customStyles={{
                                 dateInput: styles.inputDataView,
@@ -46,12 +74,22 @@ export default class Novo extends React.Component {
 
                     <View style={styles.campo}>
                         <Text style={styles.label}>Valor</Text>
-                        <TextInput style={styles.input} placeholder='R$ 10,00' selectionColor='rgb(52, 152, 219)' underlineColorAndroid='rgb(52, 152, 219)' />
+
+                        <TextInput
+                            value={this.state.valor}
+                            onChangeText={novoValor => this.valorAlterado(novoValor, 'valor')}
+                            style={styles.input}
+                            keyboardType='number-pad'
+                            placeholder='R$ 10,00'
+                            selectionColor='rgb(52, 152, 219)'
+                            underlineColorAndroid='rgb(52, 152, 219)'
+                        />
                     </View>
 
                     <View style={styles.campo}>
-                        <Text style={styles.label}>Tipo</Text>
-                        <Picker style={styles.input}>
+                        <Text style={styles.label}>Tipo do gasto</Text>
+                        
+                        <Picker selectedValue={this.state.tipoGasto} onValueChange={novoValor => this.valorAlterado(novoValor, 'tipoGasto')} style={styles.input}>
                             <Picker.Item label="Comida" value="Comida" />
                             <Picker.Item label="Transporte" value="Transporte" />
                             <Picker.Item label="Compras" value="Compras" />
@@ -65,7 +103,8 @@ export default class Novo extends React.Component {
 
                     <View style={styles.campo}>
                         <Text style={styles.label}>Forma de pagamento</Text>
-                        <Picker style={styles.input}>
+
+                        <Picker selectedValue={this.state.formaPagamento} onValueChange={novoValor => this.valorAlterado(novoValor, 'formaPagamento')} style={styles.input}>
                             <Picker.Item label="Dinheiro" value="Dinheiro" />
                             <Picker.Item label="Débito" value="Débito" />
                             <Picker.Item label="Boleto" value="Boleto" />
@@ -76,10 +115,25 @@ export default class Novo extends React.Component {
 
                     <View style={styles.campo}>
                         <Text style={styles.label}>Descrição (Opcional)</Text>
-                        <TextInput style={styles.inputDescricao} placeholder='Isso fui eu comprando um pãozinho na padoca pois tinha acabado tudo em casa' selectionColor='rgb(52, 152, 219)' underlineColorAndroid='rgb(52, 152, 219)' multiline = {true} numberOfLines = {4} maxLength={150} />
+
+                        <TextInput
+                            value={this.state.descricao}
+                            onChangeText={novoValor => this.valorAlterado(novoValor, 'descricao')}
+                            style={styles.inputDescricao}
+                            placeholder='Isso fui eu comprando um pãozinho na padoca pois tinha acabado tudo em casa'
+                            selectionColor='rgb(52, 152, 219)'
+                            underlineColorAndroid='rgb(52, 152, 219)'
+                            multiline={true}
+                            numberOfLines={4}
+                            maxLength={150}
+                        />
                     </View>
 
-                    <Button style={styles.salvar} title='Salvar' />
+                    <Button
+                        title='Salvar Gasto'
+                        onPress={e => this.salvarGasto()}
+                        style={styles.salvar}
+                    />
                 </View>
             </ScrollView>
         )
@@ -102,6 +156,10 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
         color: 'rgb(52, 152, 219)'
+    },
+    descricao: {
+        fontSize: 15,
+        color: '#aaa'
     },
     campo: {
         margin: 5,
