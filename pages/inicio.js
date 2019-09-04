@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
 
+import api, { apiConfig } from '../api'
+
 export default class Inicio extends React.Component {
     static navigationOptions = ({ navigation }) => ({
         title: 'Inicio',
@@ -24,10 +26,13 @@ export default class Inicio extends React.Component {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        //BalancoTotal: B29
+        //InvestimentoTotal: B27
+        const res = await api.get('values/2019', apiConfig)
         this.setState({
-            balancoTotal: 1000,
-            investimentoTotal: 1000,
+            balancoTotal: res.data.values[28][1],
+            investimentoTotal: res.data.values[26][1],
             meses: [
                 { nome: "Janeiro", entrada: 950, saida: 800 },
                 { nome: "Fevereiro", entrada: 950, saida: 800 },

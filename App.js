@@ -8,10 +8,10 @@ import Mes from './pages/mes'
 import ApiTests from './pages/apiTests'
 
 const mainNavigator = createStackNavigator({
-    ApiTests: { screen: ApiTests },
-    Mes: { screen: Mes },
     Inicio: { screen: Inicio },
+    Mes: { screen: Mes },
     Novo: { screen: Novo},
+    ApiTests: { screen: ApiTests },
 }, {
     defaultNavigationOptions: {
         headerStyle: {
